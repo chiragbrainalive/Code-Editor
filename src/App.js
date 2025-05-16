@@ -27,9 +27,8 @@ function App() {
           setCode={setCode}
           language={selectedLang.editorLang}
         />
-        
+        <InputBox input={input} setInput={setInput} />
       </div>
-      <InputBox input={input} setInput={setInput} />
 
       <RunButton
         code={code}
