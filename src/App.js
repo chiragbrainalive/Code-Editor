@@ -1,23 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import CodeEditor from './components/CodeEditor';
+import InputBox from './components/InputBox';
+import OutputBox from './components/OutputBox';
+import RunButton from './components/RunButton';
+import LanguageSelector from './components/LanguageSelector';
 
 function App() {
+  const [code, setCode] = useState('');
+  const [input, setInput] = useState('');
+  const [output, setOutput] = useState('');
+  const [selectedLang, setSelectedLang] = useState({
+    id: 71,
+    name: 'Python (3.8.1)',
+    editorLang: 'python',
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="min-h-screen bg-gray-100 p-4">
+      <h1 className="text-2xl font-bold mb-4 text-center">Mini Code Editor</h1>
+
+      <LanguageSelector selectedLang={selectedLang} setSelectedLang={setSelectedLang} />
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <CodeEditor
+          code={code}
+          setCode={setCode}
+          language={selectedLang.editorLang}
+        />
+        
+      </div>
+      <InputBox input={input} setInput={setInput} />
+
+      <RunButton
+        code={code}
+        input={input}
+        setOutput={setOutput}
+        languageId={selectedLang.id}
+      />
+
+      <OutputBox output={output} />
     </div>
   );
 }
